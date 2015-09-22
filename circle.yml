@@ -1,3 +1,6 @@
+machine:
+  services:
+    - docker
 dependencies:
   pre:
     - curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
@@ -10,10 +13,3 @@ deployment:
       - docker build -t caarlos0/getantibody .
       - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
       - docker push "caarlos0/getantibody:$CIRCLE_SHA1"
-#  production:
-#    branch: master
-#    commands:
-#      - cf api https://api.ng.bluemix.net
-#      - cf auth $BLUEMIX_USER $BLUEMIX_PASSWORD
-#      - cf target -o $BLUEMIX_USER -s dev
-#      - cf push antibody
