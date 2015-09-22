@@ -5,6 +5,6 @@ deployment:
   hub:
     branch: master
     commands:
-      - docker build -t caarlos0/getantibody .
+      - docker build -t "caarlos0/getantibody:$CIRCLE_SHA1" .
       - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
       - docker push "caarlos0/getantibody:$CIRCLE_SHA1"
