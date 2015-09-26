@@ -1,19 +1,8 @@
 web:
   build: .
-  command: 'bash -c ''/gopath/bin/server'''
-  working_dir: /app/user
+  command: '/gopath/bin/server'
+  working_dir: /
   environment:
-    PORT: 8080
+    PORT: 3000
   ports:
-    - '8080:8080'
-shell:
-  build: .
-  command: bash
-  working_dir: /app/user
-  environment:
-    PORT: 8080
-  ports:
-    - '8080:8080'
-  volumes:
-    - '.:/app/user'
-
+    - '3000:8080'

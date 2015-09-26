@@ -1,0 +1,1 @@
+web: /gopath/bin/server
