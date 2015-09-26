@@ -2,6 +2,8 @@ package main
 
 import (
 	"net/http"
+	"os"
+
 	"github.com/caarlos0/getantibody"
 )
 
@@ -14,5 +16,9 @@ func main() {
 		}
 		w.Write([]byte(release))
 	})
-	http.ListenAndServe(":3000", nil)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+	http.ListenAndServe(":"+port, nil)
 }

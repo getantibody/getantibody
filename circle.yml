@@ -10,3 +10,7 @@ deployment:
       - docker push "caarlos0/getantibody:$CIRCLE_SHA1"
       - docker tag "caarlos0/getantibody:$CIRCLE_SHA1" caarlos0/getantibody:latest
       - docker push caarlos0/getantibody:latest
+  heroku:
+    branch: master
+    heroku:
+      appname: antibody
