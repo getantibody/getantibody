@@ -1,6 +1,5 @@
 web:
   build: .
-  command: '/gopath/bin/server'
   working_dir: /
   environment:
     PORT: 3000
