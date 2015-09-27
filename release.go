@@ -9,16 +9,19 @@ import (
 const repo = "https://github.com/caarlos0/antibody"
 const downloadURL = repo+"/releases/download/%s/antibody_%s_%s.tar.gz"
 
+// OS type defines an Operating System
 type OS struct {
 	ID string
 	Name string
 }
 
+// Arch type defines an architecture
 type Arch struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
 }
 
+// Distribution defines a distribution, combining OS and Arch
 type Distribution struct {
 	OS     string `json:"os"`
 	Arches []Arch `json:"arches"`
@@ -54,6 +57,7 @@ var oses = []OS{
 	},
 }
 
+// LatestRelease return the last release tag name.
 func LatestRelease() (string, error) {
 	client := github.NewClient(nil)
 	releases, _, err := client.Repositories.ListReleases(
@@ -65,6 +69,8 @@ func LatestRelease() (string, error) {
 	return *releases[0].TagName, nil
 }
 
+// DownloadURL gets the download url for the given version, os and arch.
+// os and arch should be in the format of uname` commands.
 func DownloadURL(version, os, arch string) string {
 	parsedArch := strings.ToLower(arch)
 	if parsedArch == "x86_64" {
@@ -78,6 +84,7 @@ func DownloadURL(version, os, arch string) string {
 	)
 }
 
+// Distributions lists the available antibody flavors
 func Distributions() []Distribution {
 	var distributions []Distribution
 	for _, os := range oses {

@@ -1,5 +1,4 @@
 var template = '<li>%s (<a href="/latest/%s/%s">%s</a> or <a href="/latest/%s/%s">%s</a>)</li>';
-
 document.addEventListener('DOMContentLoaded', function(event) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', '/distributions');
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
     var data = JSON.parse(this.response);
     for (var i = 0; i < data.length; i++) {
       var dist = data[i];
-
       content += [
         dist.name,
         dist.os,
