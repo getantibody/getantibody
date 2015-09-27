@@ -5,7 +5,7 @@ machine:
     version: 2.7
 dependencies:
   pre:
-    - pip install awscli
+    - pip install awsebcli
     - aws configure set region us-east-1
 deployment:
   production:
