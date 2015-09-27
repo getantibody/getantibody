@@ -1,0 +1,26 @@
+{
+  "family": "antibody",
+  "containerDefinitions": [
+    {
+      "name": "getantibody",
+      "image": "caarlos0/getantibody:21",
+      "cpu": 1,
+      "memory": 100,
+      "entryPoint": [],
+      "environment": [],
+      "command": [],
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "volumesFrom": [],
+      "links": [],
+      "mountPoints": [],
+      "essential": true
+    }
+  ],
+  "volumes": []
+}

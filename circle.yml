@@ -5,9 +5,14 @@ deployment:
   hub_and_ecs:
     branch: master
     commands:
-      - docker build -t "caarlos0/getantibody:$CIRCLE_SHA1" .
+      - docker build -t "caarlos0/getantibody:$CIRCLE_BUILD_NUM" .
       - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
-      - docker push "caarlos0/getantibody:$CIRCLE_SHA1"
-      - docker tag "caarlos0/getantibody:$CIRCLE_SHA1" caarlos0/getantibody:latest
+      - docker push "caarlos0/getantibody:$CIRCLE_BUILD_NUM"
+      - docker tag "caarlos0/getantibody:$CIRCLE_BUILD_NUM" caarlos0/getantibody:latest
       - docker push caarlos0/getantibody:latest
-      - date-service --service antibody --task-definition antibody
+      - sed -i'' -e "s;%BUILD_NUM%;$CIRCLE_BUIL_NUM;g" task.json
+      - aws ecs register-task-definition --cli-input-json file://task.json
+      - TASK_REVISION="$(aws ecs describe-task-definition --task-definition antibody | grep revision | sed 's/ //g' | cut -f2 -d':')"
+      - aws ecs update-service --service getantibody --task-definition antibody
+      - aws ecs update-service --service getantibody --task-definition antibody:${TASK_REVISION}
+
