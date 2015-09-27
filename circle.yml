@@ -1,6 +1,12 @@
 machine:
   services:
     - docker
+  python:
+    version: 2.7
+dependencies:
+  pre:
+    - pip install awscli
+    - aws configure set region us-east-1
 deployment:
   production:
     branch: master
@@ -10,7 +16,5 @@ deployment:
       - docker push "caarlos0/getantibody:$CIRCLE_BUILD_NUM"
       - docker tag "caarlos0/getantibody:$CIRCLE_BUILD_NUM" caarlos0/getantibody:latest
       - docker push caarlos0/getantibody:latest
-      - aws configure set region us-east-1
       - sed -i'' -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" Dockerrun.aws.json
-      - pip install awsebcli
       - eb deploy -l $CIRCLE_BUILD_NUM
