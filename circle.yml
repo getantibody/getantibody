@@ -10,3 +10,7 @@ deployment:
       - docker push "caarlos0/getantibody:$CIRCLE_SHA1"
       - docker tag "caarlos0/getantibody:$CIRCLE_SHA1" caarlos0/getantibody:latest
       - docker push caarlos0/getantibody:latest
+  ecs:
+    branch: master
+    commands:
+      - sed -e "s;%BUILD_NUMBER%;$CIRCLE_BUILD_NUM;g" antibody.json

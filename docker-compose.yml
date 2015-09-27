@@ -1,7 +1,0 @@
-web:
-  build: .
-  working_dir: /
-  environment:
-    PORT: 3000
-  ports:
-    - '3000:8080'
