@@ -4,20 +4,12 @@ import (
 	"net/http"
 
 	"github.com/GeertJohan/go.rice"
-	"github.com/caarlos0/env"
 	"github.com/caarlos0/getantibody"
 	"github.com/labstack/echo"
 	mw "github.com/labstack/echo/middleware"
 )
 
-type Config struct {
-	Port string `env:"PORT" envDefault:"3000"`
-}
-
 func main() {
-	var config Config
-	env.Parse(&config)
-
 	e := echo.New()
 	e.Use(mw.Logger())
 	e.Use(mw.Recover())
@@ -51,5 +43,5 @@ func main() {
 		return nil
 	})
 
-	e.Run(":" + config.Port)
+	e.Run(":3000")
 }
