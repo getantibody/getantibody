@@ -5,10 +5,10 @@ deployment:
   hub:
     branch: master
     commands:
-      - docker build -t "caarlos0/getantibody:$CIRCLE_SHA1" .
+      - docker build -t "caarlos0/getantibody:$CIRCLE_BUILD_NUM" .
       - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
-      - docker push "caarlos0/getantibody:$CIRCLE_SHA1"
-      - docker tag "caarlos0/getantibody:$CIRCLE_SHA1" caarlos0/getantibody:latest
+      - docker push "caarlos0/getantibody:$CIRCLE_BUILD_NUM"
+      - docker tag "caarlos0/getantibody:$CIRCLE_BUILD_NUM" caarlos0/getantibody:latest
       - docker push caarlos0/getantibody:latest
   ecs:
     branch: master
