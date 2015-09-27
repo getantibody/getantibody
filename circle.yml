@@ -5,12 +5,12 @@ deployment:
   hub:
     branch: master
     commands:
-      - docker build -t "caarlos0/getantibody:$CIRCLE_BUILD_NUM" .
+      - docker build -t "caarlos0/getantibody:$CIRCLE_SHA1" .
       - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
-      - docker push "caarlos0/getantibody:$CIRCLE_BUILD_NUM"
-      - docker tag "caarlos0/getantibody:$CIRCLE_BUILD_NUM" caarlos0/getantibody:latest
+      - docker push "caarlos0/getantibody:$CIRCLE_SHA1"
+      - docker tag "caarlos0/getantibody:$CIRCLE_SHA1" caarlos0/getantibody:latest
       - docker push caarlos0/getantibody:latest
   ecs:
     branch: master
     commands:
-      - sed -e "s;%BUILD_NUMBER%;$CIRCLE_BUILD_NUM;g" antibody.json
+      - aws ecs update-service --service antibody --task-definition antibody
