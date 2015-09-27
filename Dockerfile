@@ -5,6 +5,7 @@ ENV GOPATH=/gopath \
 
 WORKDIR $SRC
 ADD . $SRC
+EXPOSE 3000
 
 RUN apk add -U git go && \
   go get -v -d ./... && \

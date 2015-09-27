@@ -6,7 +6,6 @@ machine:
 dependencies:
   pre:
     - pip install awsebcli
-    - aws configure set region us-east-1
 deployment:
   production:
     branch: master
