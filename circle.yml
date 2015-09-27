@@ -12,8 +12,7 @@ deployment:
       - docker push caarlos0/getantibody:latest
       - aws configure set region us-east-1
       - sed -i'' -e "s;%BUILD_NUM%;$CIRCLE_BUIL_NUM;g" task.json
+      - cat task.json
       - aws ecs register-task-definition --cli-input-json file://task.json
-      - export TASK_REVISION="$(aws ecs describe-task-definition --task-definition antibody | grep revision | sed 's/ //g' | cut -f2 -d':')"
-      - echo $TASK_REVISION
-      - aws ecs update-service --service getantibody --task-definition antibody:$TASK_REVISION
+      - aws ecs update-service --service getantibody --task-definition antibody:$(aws ecs describe-task-definition --task-definition antibody | grep revision | sed 's/ //g' | cut -f2 -d':')
 
