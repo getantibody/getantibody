@@ -2,7 +2,7 @@ machine:
   services:
     - docker
 deployment:
-  hub_and_ecs:
+  production:
     branch: master
     commands:
       - docker build -t "caarlos0/getantibody:$CIRCLE_BUILD_NUM" .
@@ -11,7 +11,5 @@ deployment:
       - docker tag "caarlos0/getantibody:$CIRCLE_BUILD_NUM" caarlos0/getantibody:latest
       - docker push caarlos0/getantibody:latest
       - aws configure set region us-east-1
-      - sed -i'' -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" task.json
-      - aws ecs register-task-definition --cli-input-json file://task.json
-      - aws ecs update-service --service antibody --task-definition antibody:$(aws ecs describe-task-definition --task-definition antibody | grep revision | sed 's/ //g' | cut -f2 -d':')
-
+      - sed -i'' -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" Dockerrun.aws.json
+      - aws eb deploy -l $CIRCLE_BUILD_NUM
