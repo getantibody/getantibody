@@ -11,4 +11,10 @@ deployment:
     branch: master
     commands:
       - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
-      - ./.deploy/deploy.sh
+      - docker build -t "caarlos0/getantibody:$CIRCLE_BUILD_NUM" .
+      - docker push "caarlos0/getantibody:$CIRCLE_BUILD_NUM"
+      - docker tag "caarlos0/getantibody:$CIRCLE_BUILD_NUM" caarlos0/getantibody:latest
+      - docker push caarlos0/getantibody:latest
+      - sed -i'' -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" ./.deploy/Dockerrun.aws.json
+      - cd .deploy && eb init -r us-east-1 getantibody
+      - cd .deploy && eb deploy -l $CIRCLE_BUILD_NUM
