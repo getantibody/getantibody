@@ -12,4 +12,5 @@ deployment:
       - docker push caarlos0/getantibody:latest
       - aws configure set region us-east-1
       - sed -i'' -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" Dockerrun.aws.json
-      - aws eb deploy -l $CIRCLE_BUILD_NUM
+      - pip install awsebcli
+      - eb deploy -l $CIRCLE_BUILD_NUM
