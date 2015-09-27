@@ -3,7 +3,6 @@ set -ex
 
 # build and bush to docker
 docker build -t "caarlos0/getantibody:$CIRCLE_BUILD_NUM" .
-docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
 docker push "caarlos0/getantibody:$CIRCLE_BUILD_NUM"
 docker tag "caarlos0/getantibody:$CIRCLE_BUILD_NUM" caarlos0/getantibody:latest
 docker push caarlos0/getantibody:latest
