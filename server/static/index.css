@@ -1,0 +1,7 @@
+pre {
+    background-color: #002b36;
+    color: #93a1a1;
+}
+pre code {
+    font-family: Hack, Menlo, Monaco, "Courier New", monospace;
+}
