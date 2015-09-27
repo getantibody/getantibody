@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "getantibody",
-      "image": "caarlos0/getantibody:21",
+      "image": "caarlos0/getantibody:%BUILD_NUM%",
       "cpu": 1,
       "memory": 100,
       "entryPoint": [],
