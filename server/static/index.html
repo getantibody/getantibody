@@ -13,14 +13,37 @@
         <iframe src="//ghbtns.com/github-btn.html?user=caarlos0&repo=antibody&type=fork&count=true" frameborder="0" scrolling="0" width="80px" height="20px"></iframe>
         <iframe src="//ghbtns.com/github-btn.html?user=caarlos0&type=follow&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
     </h1>
-    <img align="right" width="192px"  alt="logo" src="//raw.githubusercontent.com/caarlos0/antibody/master/logo.png"/>
+    <img align="right" width="192px" alt="logo" src="//raw.githubusercontent.com/caarlos0/antibody/master/logo.png"/>
     <pre>A faster and simpler antigen written in Golang.</pre>
-    <p>You can download and extract it somewhere:</p>
+    <p>
+        You can download, extract it somewhere and source the
+        <code>antibody.zsh</code> file:
+    </p>
     <ul id="js-downloads"></ul>
-    <p>You can script it somewhere:</p>
-    <pre><code>$ wget "http://antibody.elasticbeanstalk.com/latest/$(uname -s)/$(uname -m)"</code></pre>
-    <p>On OSX, you can install it using homebrew:</p>
-    <pre><code>$ brew tap caarlos0/homebrew-antibody && brew install antibody</code></pre>
+    <p>
+        You can script it somewhere:
+    </p>
+    <pre>
+        <code>
+$ wget -O antibody.tar.gz "http://antibody.elasticbeanstalk.com/latest/$(uname -s)/$(uname -m)"
+$ mkdir /somewhere/antibody
+$ tar xzvf antibody.tar.gz -C /somewhere/antibody
+$ source /somewhere/antibody/antibody.zsh
+$ antibody
+        </code>
+    </pre>
+    <p>
+        On OSX, you can install it using
+        <a href="https://github.com/caarlos0/homebrew-antibody">homebrew</a>:
+    </p>
+    <pre>
+        <code>
+$ brew tap caarlos0/homebrew-antibody
+$ brew install antibody
+$ source "$(brew --prefix)/share/antibody.zsh"
+$ antibody
+        </code>
+    </pre>
     <hr/>
     <p>Made with &hearts; by <a href="https://carlosbecker.com/about">@caarlos0</a>.</p>
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
