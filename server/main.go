@@ -23,12 +23,13 @@ func main() {
 		arch := c.Param("arch")
 		v, err := getantibody.LatestRelease()
 		if err != nil {
-			return err
+			return c.String(http.StatusBadRequest, err.Error())
 		}
-		return c.Redirect(
-			http.StatusSeeOther,
-			getantibody.DownloadURL(v, os, arch),
-		)
+		url, err := getantibody.DownloadURL(v, os, arch)
+		if err != nil {
+			return c.String(http.StatusBadRequest, err.Error())
+		}
+		return c.Redirect(http.StatusSeeOther, url)
 	})
 
 	// frontend

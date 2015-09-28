@@ -1,17 +1,19 @@
 package getantibody
 
 import (
+	"errors"
 	"fmt"
-	"github.com/google/go-github/github"
 	"strings"
+
+	"github.com/google/go-github/github"
 )
 
 const repo = "https://github.com/caarlos0/antibody"
-const downloadURL = repo+"/releases/download/%s/antibody_%s_%s.tar.gz"
+const downloadURL = repo + "/releases/download/%s/antibody_%s_%s.tar.gz"
 
 // OS type defines an Operating System
 type OS struct {
-	ID string
+	ID   string
 	Name string
 }
 
@@ -71,17 +73,41 @@ func LatestRelease() (string, error) {
 
 // DownloadURL gets the download url for the given version, os and arch.
 // os and arch should be in the format of uname` commands.
-func DownloadURL(version, os, arch string) string {
+func DownloadURL(version, os, arch string) (string, error) {
 	parsedArch := strings.ToLower(arch)
 	if parsedArch == "x86_64" {
 		parsedArch = "amd64"
+	}
+	if !isValidArch(parsedArch) {
+		return "", errors.New("Arch " + parsedArch + " is not supported!")
+	}
+	if !isValidOS(os) {
+		return "", errors.New("OS " + os + " is not supported!")
 	}
 	return fmt.Sprintf(
 		downloadURL,
 		version,
 		strings.ToLower(os),
 		parsedArch,
-	)
+	), nil
+}
+
+func isValidOS(s string) bool {
+	for _, os := range oses {
+		if s == os.ID {
+			return true
+		}
+	}
+	return false
+}
+
+func isValidArch(s string) bool {
+	for _, arch := range arches {
+		if s == arch.ID {
+			return true
+		}
+	}
+	return false
 }
 
 // Distributions lists the available antibody flavors
