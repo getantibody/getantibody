@@ -17,7 +17,7 @@ func TestDownloadURLValidOSAndArch(t *testing.T) {
 	release, _ := getantibody.LatestRelease()
 	url, err := getantibody.DownloadURL(
 		release,
-		"darwin",
+		"Darwin",
 		"x86_64",
 	)
 	assert.Contains(t, url, "github.com")

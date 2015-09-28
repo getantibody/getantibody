@@ -75,19 +75,20 @@ func LatestRelease() (string, error) {
 // os and arch should be in the format of uname` commands.
 func DownloadURL(version, os, arch string) (string, error) {
 	parsedArch := strings.ToLower(arch)
+	parsedOs := strings.ToLower(os)
 	if parsedArch == "x86_64" {
 		parsedArch = "amd64"
 	}
 	if !isValidArch(parsedArch) {
 		return "", errors.New("Arch " + parsedArch + " is not supported!")
 	}
-	if !isValidOS(os) {
-		return "", errors.New("OS " + os + " is not supported!")
+	if !isValidOS(parsedOs) {
+		return "", errors.New("OS " + parsedOs + " is not supported!")
 	}
 	return fmt.Sprintf(
 		downloadURL,
 		version,
-		strings.ToLower(os),
+		parsedOs,
 		parsedArch,
 	), nil
 }
